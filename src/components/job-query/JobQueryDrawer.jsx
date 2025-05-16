@@ -1,10 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback, useMemo, memo } from "react";
 import { Box, Button, Typography } from "@mui/material";
 import CustomDrawer from "../drawer/Drawer";
 import { SAMPLE_JOBS } from "../../constants";
 import JobQuerySelector from "./JobQuerySelector";
 
-const JobQueryDrawer = ({ open, onClose }) => {
+const JobQueryDrawer = memo(({ open, onClose }) => {
   const [selectedJobQuery, setSelectedJobQuery] = useState(null);
 
   useEffect(() => {
@@ -13,37 +13,42 @@ const JobQueryDrawer = ({ open, onClose }) => {
     }
   }, [open]);
 
-  const handleJobQueryChange = (queryId) => {
+  const handleJobQueryChange = useCallback((queryId) => {
     setSelectedJobQuery(queryId);
-  };
+  }, []);
 
-  const handleAddToShortlist = () => {
+  const handleAddToShortlist = useCallback(() => {
     onClose();
-  };
-  const footerContent = (
-    <Box
-      sx={{
-        display: "flex",
-        justifyContent: "end",
-        width: "100%",
-      }}
-    >
-      <Button
-        variant="contained"
-        color="primary"
-        disabled={!selectedJobQuery}
-        onClick={handleAddToShortlist}
+  }, [onClose]);
+
+  const footerContent = useMemo(
+    () => (
+      <Box
         sx={{
-          textTransform: "none",
-          px: { xs: 3, sm: 4 },
-          maxWidth: "300px",
-          width: { xs: "80%", sm: "auto" },
+          display: "flex",
+          justifyContent: "end",
+          width: "100%",
         }}
       >
-        Add Candidates to Shortlist
-      </Button>
-    </Box>
+        <Button
+          variant="contained"
+          color="primary"
+          disabled={!selectedJobQuery}
+          onClick={handleAddToShortlist}
+          sx={{
+            textTransform: "none",
+            px: { xs: 3, sm: 4 },
+            maxWidth: "300px",
+            width: { xs: "80%", sm: "auto" },
+          }}
+        >
+          Add Candidates to Shortlist
+        </Button>
+      </Box>
+    ),
+    [selectedJobQuery, handleAddToShortlist]
   );
+
   return (
     <CustomDrawer
       open={open}
@@ -81,6 +86,6 @@ const JobQueryDrawer = ({ open, onClose }) => {
       </Box>
     </CustomDrawer>
   );
-};
+});
 
 export default JobQueryDrawer;
