@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Box, Button, Typography } from "@mui/material";
 import CustomDrawer from "../drawer/Drawer";
 import { SAMPLE_JOBS } from "../../constants";
@@ -6,6 +6,12 @@ import JobQuerySelector from "./JobQuerySelector";
 
 const JobQueryDrawer = ({ open, onClose }) => {
   const [selectedJobQuery, setSelectedJobQuery] = useState(null);
+
+  useEffect(() => {
+    if (!open) {
+      setSelectedJobQuery(null);
+    }
+  }, [open]);
 
   const handleJobQueryChange = (queryId) => {
     setSelectedJobQuery(queryId);
