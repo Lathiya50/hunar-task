@@ -1,5 +1,8 @@
 # Hunar - Job Candidate Management System
 
+## Live Demo
+[https://hunar-task.vercel.app/](https://hunar-task.vercel.app/)
+
 ## Project Description
 Hunar is a modern React application designed to streamline the job candidate management process. It provides a user-friendly interface for managing job candidates, including features to organize candidates by job queries and perform various candidate actions.
 
@@ -25,7 +28,7 @@ Hunar is a modern React application designed to streamline the job candidate man
 1. Clone the repository
    ```
    git clone https://github.com/Lathiya50/hunar-task.git
-   cd hunar
+   cd hunar-task
    ```
 
 2. Install dependencies
